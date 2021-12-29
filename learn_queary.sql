@@ -99,6 +99,11 @@ SELECT * FROM customers WHERE phone IS NOT NULL;
 --GET THE ORDERS THAT ARE NOT SHIPPED
 SELECT * FROM orders WHERE shipper_id IS NULL;
 --THE ORDER BY CALUES
+SELECT * FROM customers ORDER BY first_name,state DESC;
+SELECT first_name,last_name FROM customers ORDER BY birth_date,state DESC;
+--EXERSICE
+SELECT *,quantity*unit_price AS total_price FROM order_items WHERE order_id = 2 ORDER BY total_price DESC;
+--THE LIMIT CLAUSE
 
 
 
