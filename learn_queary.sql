@@ -81,6 +81,26 @@ SELECT * FROM customers WHERE address LIKE '%trail%' OR  address LIKE '%avenue%'
 SELECT * FROM customers WHERE phone  LIKE '%9';
 --the REGXP OPERATOR
 SELECT * FROM customers WHERE last_name REGEXP'field';
+--exersise
+--get the customers whose
+    --first names are ELKA OR AMBUR
+SELECT *FROM customers WHERE first_name REGEXP 'elka|ambur';
+    --LAST NAMES END WITH ey or on
+SELECT * FROM customers WHERE   last_name  REGEXP 'ey$|on$';
+    --LAST NAMES START WITH MY OR CONTAINS SE
+SELECT * FROM customers WHERE   last_name  REGEXP '^ey|on';
+    --LAST NAME CONTAIN b FOLLOWED BY r OR U
+SELECT * FROM customers WHERE last_name REGEXP 'br|bu';
+--THE IS NULL OPERATOR 
+SELECT * FROM customers WHERE phone IS NULL;
+--is not null 
+SELECT * FROM customers WHERE phone IS NOT NULL;
+--exersise
+--GET THE ORDERS THAT ARE NOT SHIPPED
+SELECT * FROM orders WHERE shipper_id IS NULL;
+--THE ORDER BY CALUES
+
+
 
 
 
