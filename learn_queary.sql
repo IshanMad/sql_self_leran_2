@@ -104,8 +104,63 @@ SELECT first_name,last_name FROM customers ORDER BY birth_date,state DESC;
 --EXERSICE
 SELECT *,quantity*unit_price AS total_price FROM order_items WHERE order_id = 2 ORDER BY total_price DESC;
 --THE LIMIT CLAUSE
+SELECT * FROM customers LIMIT 3;
+--LIMIT WITH OFFESET 
+SELECT * FROM customers limit 6,3; --this is use full to pagination;
+--EXERSISE 
+--get the top 3 loyal customers 
+SELECT * FROM customers ORDER BY points DESC LIMIT 3;
 
+--INNER JOIN
+SELECT order_id , first_name,last_name FROM orders JOIN customers on orders.customer_id = customers.customer_id;
+--USING ALIAS
+SELECT order_id , first_name, last_name,o.customer_id FROM orders  o JOIN customers  c on o.customer_id = c.customer_id;
+SELECT * FROM order_items o JOIN products p ON o.product_id = p.product_id;
+--SELF JOIN 
+SELECT * FROM employees e JOIN employees m ON e.reports_to = m.employee_id;
+SELECT e.employee_id,e.first_name, m.first_name AS manager_name FROM employees e JOIN employees m ON e.reports_to = m.employee_id;
 
+--JOIN three tables
+SELECT o.order_id,o.order_date,c.first_name,c.last_name,os.name AS status 
+FROM orders o JOIN customers c ON o.customer_id = c.customer_id 
+JOIN order_statuses os ON o.status = os.order_status_id;
+
+--EXERCISE
+SELECT * FROM payments p JOIN clients c ON p.client_id = c.client_id;
+SELECT * FROM payments p JOIN clients c ON p.client_id = c.client_id JOIN payment_methods pm ON p.payment_method = pm.payment_method_id;
+SELECT p.date,p.invoice_id,p.amount,c.name,pm.name FROM payments p JOIN clients c ON p.client_id = c.client_id JOIN payment_methods pm ON p.payment_method = pm.payment_method_id;
+
+--COMPUND JOIN CONDITIONS
+SELECT * FROM order_items oi JOIN order_item_notes oin ON oi.order_id = oin.order_id AND oi.product_id = oin.product_id;
+--IMPLICIT JOIN SYNATX
+--NORMAL QUERY
+SELECT * FROM orders o JOIN customers c ON o.customer_id = c.customer_id;
+--same query using implicit 
+SELECT * FROM orders o,customers c WHERE o.customer_id = c.customer_id;
+
+--outer join 
+    --right join
+SELECT c.customer_id,c.first_name,o.order_id FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id ORDER BY c.customer_id;
+ --left join c
+ SELECT c.customer_id,c.first_name,o.order_id FROM customers c RIGHT JOIN orders o ON c.customer_id = o.customer_id ORDER BY c.customer_id;
+ --outer join betwee multiple table
+ SELECT 
+    c.customer_id,
+    c.first_name,
+    o.order_id,
+    sh.name AS shipper
+FROM customers c
+RIGHT JOIN orders o
+            ON c.customer_id = o.customer_id
+LEFT JOIN shippers sh
+            ON o.shipper_id = sh.shipper_id
+        ORDER BY c.customer_id;    
+
+SELECT o.order_id, o.order_date, c.first_name AS customer, sh.name AS shipper, os.name AS status FROM orders o JOIN customers c ON o.customer_id = c.customer_id LEFT JOIN shippers sh ON o.shipper_id = sh.shipper_id JOIN order_statuses os ON o.status = os.order_status_id;
+
+--self outer joins
+SELECT e.employee_id,e.first_name,m.first_name AS manager FROM employees e LEFT JOIN employees m ON e.reports_to = m.employee_id;
+--THE USING CALUES
 
 
 
