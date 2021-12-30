@@ -160,7 +160,8 @@ SELECT o.order_id, o.order_date, c.first_name AS customer, sh.name AS shipper, o
 
 --self outer joins
 SELECT e.employee_id,e.first_name,m.first_name AS manager FROM employees e LEFT JOIN employees m ON e.reports_to = m.employee_id;
---THE USING CALUES
+--THE USING CALUES  using ke world only used colum name extarcly same
+
 
 
 
