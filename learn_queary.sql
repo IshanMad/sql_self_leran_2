@@ -161,6 +161,26 @@ SELECT o.order_id, o.order_date, c.first_name AS customer, sh.name AS shipper, o
 --self outer joins
 SELECT e.employee_id,e.first_name,m.first_name AS manager FROM employees e LEFT JOIN employees m ON e.reports_to = m.employee_id;
 --THE USING CALUES  using ke world only used colum name extarcly same
+SELECT o.order_id,c.first_name FROM orders o JOIN customer c USING(customer_id) JOIN shippers sh USING (shipper_id);
+--EXERCISES 
+SELECT p.date,c.name AS client,p.amount,pm.name AS payment_method FROM
+        payments p JOIN clients c USING (client_id) JOIN payment_methods
+        pm ON p.payment_method = pm.payment_method_id;
+--NATURAL JOINS(database engine automatically find joins this may be danguroes)
+SELECT o.order_id, c.first_name FROM orders o NATURAL JOIN customers c ;    
+--CROSS JOINS    
+SELECT c.first_name AS customer,p.name AS product FROM customers c CROSS JOIN  products p ORDER BY c,first_name;
+--unicons(combine two queries using union)
+SELECT order_id,order_date,'Active' AS status FROM orders WHERE order_date >= '2019-01-01' 
+UNION SELECT 
+order_id,order_date,'Archived' AS status FROM orders WHERE order_date < '2019-01-01';
+--EXERCISES
+SELECT customer_id,first_name,points, 'Bronze' FROM customers WHERE points < 2000 
+UNION
+SELECT customer_id,first_name,points, 'Silver' FROM customers WHERE points BETWEEN 2000 AND 3000
+UNION
+SELECT customer_id,first_name,points, 'Golg' FROM customers WHERE points >  3000 ORDER BY first_name;
+--COLUM ATTRIBUTES
 
 
 
