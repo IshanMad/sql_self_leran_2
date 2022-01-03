@@ -180,7 +180,45 @@ UNION
 SELECT customer_id,first_name,points, 'Silver' FROM customers WHERE points BETWEEN 2000 AND 3000
 UNION
 SELECT customer_id,first_name,points, 'Golg' FROM customers WHERE points >  3000 ORDER BY first_name;
---COLUM ATTRIBUTES
+--copy data one table form another table
+
+CREATE TABLE orders_archived AS SELECT * FROM orders;
+
+--instert data form another table
+INSERT INTO orders_archived SELECT * FROM orders WHERE order_date < '2019-01-01'
+--EXERCISES
+CREATE TABLE invoices_archived AS
+SELECT i.invoice_id,
+       i.number,
+       c.name AS client,
+       i.invoice_total,
+       i.payment_total, 
+       i.invoice_date,
+       i.payment_date,
+       i.due_date FROM invoices i JOIN clients c
+ USING (client_id) WHERE payment_date IS NOT NULL;
+
+ --update example 
+UPDATE invoices SET payment_total = invoice_total * 0.5,payment_date = due_date WHERE client_id = (SELECT client_id FROM clients WHERE name='Myworks')
+UPDATE invoices SET payment_total = invoice_total * 0.5,payment_date = due_date WHERE client_id = (SELECT client_id FROM clients WHERE state IN ('CA','NY '))
+UPDATE orders SET comments = 'GOLD CUSTOMER' WHERE customer_id IN(SELECT customer_id FROM customers WHERE points>3000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
